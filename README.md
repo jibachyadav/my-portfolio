@@ -20,7 +20,8 @@ A personal portfolio website built with **React** and **Tailwind CSS** to showca
   
 
 Live Demo:
-- my-portfolio-six-alpha-10.vercel.app
+- https://my-portfolio-six-alpha-10.vercel.app
+
 
 
 
@@ -30,6 +31,7 @@ Live Demo:
 ```bash
 git clone https://github.com/yourusername/myportfolio.git
 cd myportfolio
+
 
 
 
