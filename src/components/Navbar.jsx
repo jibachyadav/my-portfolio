@@ -4,68 +4,56 @@ import { gsap } from "gsap";
 import "./PillNav.css";
 import defaultLogo from "../assets/logo.jpg";
 
-const PillNav = ({ onMobileMenuClick }) => {
+const PillNav = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const hamburgerRef = useRef(null);
   const mobileMenuRef = useRef(null);
 
-  const ease = "power3.inOut";
+  const navItems = [
+    { label: "Home", href: "#home" },
+    { label: "About", href: "#about" },
+    { label: "Projects", href: "#projects" },
+    { label: "Contact", href: "#contact" },
+  ];
 
   const toggleMobileMenu = () => {
     const newState = !isMobileMenuOpen;
     setIsMobileMenuOpen(newState);
 
-    const hamburger = hamburgerRef.current;
-    const menu = mobileMenuRef.current;
-
     // Lock scroll when menu is open
     document.body.style.overflow = newState ? "hidden" : "auto";
 
-    if (hamburger) {
-      const lines = hamburger.querySelectorAll(".hamburger-line");
-      if (newState) {
-        // Animate hamburger into "X"
-        gsap.to(lines[0], { rotation: 45, y: 6, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: -45, y: -6, duration: 0.3, ease });
-      } else {
-        // Reset hamburger
-        gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease });
-        gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease });
-      }
+    // Hamburger animation
+    const lines = hamburgerRef.current.querySelectorAll(".hamburger-line");
+    if (newState) {
+      gsap.to(lines[0], { rotation: 45, y: 6, duration: 0.3, ease: "power3.inOut" });
+      gsap.to(lines[1], { rotation: -45, y: -6, duration: 0.3, ease: "power3.inOut" });
+    } else {
+      gsap.to(lines[0], { rotation: 0, y: 0, duration: 0.3, ease: "power3.inOut" });
+      gsap.to(lines[1], { rotation: 0, y: 0, duration: 0.3, ease: "power3.inOut" });
     }
 
-    if (menu) {
+    // Mobile menu animation
+    if (mobileMenuRef.current) {
       if (newState) {
-        // Slide menu down
         gsap.fromTo(
-          menu,
+          mobileMenuRef.current,
           { opacity: 0, y: -20 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.4,
-            ease,
-            visibility: "visible",
-          }
+          { opacity: 1, y: 0, duration: 0.4, ease: "power3.inOut", visibility: "visible" }
         );
       } else {
-        // Slide menu up
-        gsap.to(menu, {
+        gsap.to(mobileMenuRef.current, {
           opacity: 0,
           y: -20,
           duration: 0.3,
-          ease,
-          onComplete: () => {
-            gsap.set(menu, { visibility: "hidden" });
-          },
+          ease: "power3.inOut",
+          onComplete: () => gsap.set(mobileMenuRef.current, { visibility: "hidden" }),
         });
       }
     }
-
-    onMobileMenuClick?.();
   };
 
-  // Close menu when clicking outside
+  // Close mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (
@@ -85,9 +73,7 @@ const PillNav = ({ onMobileMenuClick }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isMobileMenuOpen]);
 
   return (
@@ -98,31 +84,18 @@ const PillNav = ({ onMobileMenuClick }) => {
         <span className="logo-text">MyPortfolio</span>
       </div>
 
-      {/* Desktop Nav Links */}
+      {/* Desktop Navigation */}
       <ul className="nav-links desktop-only">
-        <li>
-          <a href="#home" className="nav-link">
-            Home
-          </a>
-        </li>
-        <li>
-          <a href="#about" className="nav-link">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#projects" className="nav-link">
-            Projects
-          </a>
-        </li>
-        <li>
-          <a href="#contact" className="nav-link">
-            Contact
-          </a>
-        </li>
+        {navItems.map((item) => (
+          <li key={item.href}>
+            <a href={item.href} className="nav-link">
+              {item.label}
+            </a>
+          </li>
+        ))}
       </ul>
 
-      {/* Hamburger Button (Mobile Only) */}
+      {/* Mobile Hamburger */}
       <div
         ref={hamburgerRef}
         className="mobile-menu-button mobile-only"
@@ -133,28 +106,15 @@ const PillNav = ({ onMobileMenuClick }) => {
       </div>
 
       {/* Mobile Menu */}
-      <div ref={mobileMenuRef} className="mobile-menu-popover">
+      <div ref={mobileMenuRef} className="mobile-menu-popover mobile-only">
         <ul className="mobile-menu-list">
-          <li>
-            <a href="#home" className="mobile-menu-link" onClick={toggleMobileMenu}>
-              Home
-            </a>
-          </li>
-          <li>
-            <a href="#about" className="mobile-menu-link" onClick={toggleMobileMenu}>
-              About
-            </a>
-          </li>
-          <li>
-            <a href="#projects" className="mobile-menu-link" onClick={toggleMobileMenu}>
-              Projects
-            </a>
-          </li>
-          <li>
-            <a href="#contact" className="mobile-menu-link" onClick={toggleMobileMenu}>
-              Contact
-            </a>
-          </li>
+          {navItems.map((item) => (
+            <li key={item.href}>
+              <a href={item.href} className="mobile-menu-link" onClick={toggleMobileMenu}>
+                {item.label}
+              </a>
+            </li>
+          ))}
         </ul>
       </div>
     </nav>
