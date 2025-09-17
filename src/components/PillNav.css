@@ -1,20 +1,20 @@
-/* General Nav Container */
+/* Navbar container */
 .pill-nav {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 0.8rem 1.5rem;
+  padding: 1rem 1.5rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(15, 15, 30, 0.85);
+  background: rgba(15, 15, 30, 0.95);
   backdrop-filter: blur(10px);
-  z-index: 50;
+  z-index: 100;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Logo Section */
+/* Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -33,7 +33,7 @@
   color: #fff;
 }
 
-/* Desktop Nav Links */
+/* Desktop navigation links */
 .nav-links {
   display: flex;
   gap: 2rem;
@@ -46,27 +46,27 @@
 }
 
 .nav-link:hover {
-  color: #ffffff;
+  color: #fff;
 }
 
-/* Hamburger (Mobile Only) */
+/* Hamburger button (mobile) */
 .mobile-menu-button {
   display: flex;
   flex-direction: column;
   gap: 6px;
   cursor: pointer;
-  z-index: 60;
+  z-index: 101;
 }
 
 .hamburger-line {
-  width: 24px;
+  width: 30px;
   height: 3px;
   background-color: #fff;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
 
-/* Mobile Menu Overlay */
+/* Mobile menu overlay */
 .mobile-menu-popover {
   position: fixed;
   top: 0;
@@ -77,12 +77,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   visibility: hidden;
   opacity: 0;
-  z-index: 40;
+  z-index: 100;
+  overflow-y: auto;
   transition: opacity 0.3s ease;
 }
 
+/* Mobile menu links */
 .mobile-menu-list {
   display: flex;
   flex-direction: column;
@@ -91,7 +94,7 @@
 }
 
 .mobile-menu-link {
-  font-size: 1.5rem;
+  font-size: 1.8rem;
   font-weight: 500;
   color: #fff;
   transition: color 0.3s ease;
@@ -101,7 +104,7 @@
   color: #a78bfa;
 }
 
-/* Responsive Classes */
+/* Responsive visibility */
 @media (min-width: 768px) {
   .mobile-only {
     display: none;
