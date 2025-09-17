@@ -3,6 +3,7 @@
 A personal portfolio website built with **React** and **Tailwind CSS** to showcase projects, skills, and contact information. This project features a responsive design, interactive components, and smooth animations.
 
 ## 🚀 Demo
+             http://localhost:5179/
 
 
 ## 💻 Features
@@ -29,5 +30,6 @@ A personal portfolio website built with **React** and **Tailwind CSS** to showca
 ```bash
 git clone https://github.com/yourusername/myportfolio.git
 cd myportfolio
+
 
 
